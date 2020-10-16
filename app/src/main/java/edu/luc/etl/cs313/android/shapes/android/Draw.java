@@ -49,7 +49,7 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onGroup(final Group g) {
-		final Iterator<> extends Shape > shape = g.getShapes().iterator();
+		final Iterator<? extends Shape > shape = g.getShapes().iterator();
 				while (shape.hasNext()) {
 					shape.next().accept(this);
 				}
