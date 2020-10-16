@@ -39,6 +39,7 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onFill(final Fill f) {
+
 		paint.setStyle(Style.FILL_AND_STROKE);
 		f.getShape().accept(this);
 		paint.setStyle(Style.STROKE);
@@ -47,8 +48,7 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onGroup(final Group g) {
-
-		return null;
+      return null;
 	}
 
 	@Override
@@ -59,21 +59,25 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onRectangle(final Rectangle r) {
-
+//		https://developer.android.com/reference/android/graphics/Rect
+		canvas.drawRect(0, 0, r.getWidth(), r.getHeight(), paint);
 		return null;
 	}
 
 	@Override
 	public Void onOutline(Outline o) {
-
+		final Style ol = paint.getStyle();
+		paint.setStyle(Style.STROKE);
+		o.getShape().accept(this);
+		paint.setStyle(ol);
 		return null;
 	}
 
 	@Override
 	public Void onPolygon(final Polygon s) {
-
+// get points
 		final float[] pts = null;
-
+// define points to get
 		canvas.drawLines(pts, paint);
 		return null;
 	}
