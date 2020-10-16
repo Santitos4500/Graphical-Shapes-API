@@ -1,12 +1,11 @@
 package edu.luc.etl.cs313.android.shapes.android;
-
+// List imported for OnPolygon
 import java.util.List;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import edu.luc.etl.cs313.android.shapes.model.*;
 import java.util.Iterator;
-
 /**
  * A Visitor for drawing a shape to an Android canvas.
  */
@@ -51,10 +50,11 @@ public class Draw implements Visitor<Void> {
 	@Override
 	public Void onGroup(final Group g) {
 		final Iterator<? extends Shape > shape = g.getShapes().iterator();
-		while (shape.hasNext()) {
-			shape.next().accept(this);
-		}
+				while (shape.hasNext()) {
+					shape.next().accept(this);
+				}
 		return null;
+
 	}
 
 	@Override
@@ -86,6 +86,7 @@ public class Draw implements Visitor<Void> {
         List<? extends Point> points = s.getPoints();
 
         final float[] pts = {
+        		//TO DO
 		};
 //		https://developer.android.com/reference/android/graphics/Canvas#drawLines(float%5B%5D,%2520int,%2520int,%2520android.graphics.Paint)
 		canvas.drawLines(pts, paint);
