@@ -17,11 +17,12 @@ public class StrokeColor implements Shape {
 	}
 
 	public int getColor() {
-		return -1;
+		return color;
 	}
 
 	public Shape getShape() {
-		return null;
+
+		return shape;
 	}
 
 	@Override
