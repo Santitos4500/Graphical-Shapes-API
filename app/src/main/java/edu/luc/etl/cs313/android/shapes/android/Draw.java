@@ -55,7 +55,6 @@ public class Draw implements Visitor<Void> {
 			shape.next().accept(this);
 		}
 		return null;
-
 	}
 
 	@Override
