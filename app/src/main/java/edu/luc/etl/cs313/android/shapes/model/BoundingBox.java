@@ -1,4 +1,5 @@
 package edu.luc.etl.cs313.android.shapes.model;
+import java.util.List;
 
 /**
  * A shape visitor for calculating the bounding box, that is, the smallest
@@ -25,9 +26,30 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onGroup(final Group g) {
+		List<? extends Shape> s = g.getShapes();
+		Location current = s.get(0).accept(this);
+		int x1 = current.getX();
+		int y1 = current.getY();
+		int x2 = ((Rectangle)current.getShape()).getWidth()+x1;
+		int y2 = ((Rectangle)current.getShape()).getHeight()+y1;
 
-		return null;
+		int i = 0;
+		while(i < s.size()) {
+			current = s.get(i).accept(this);
+			if(current.getX()<x1) x1 = current.getX();
+			if(current.getY()<y1) y1 = current.getY();
+			if(current.getX()+((Rectangle)current.getShape()).getWidth()>x2) {
+				x2 = current.getX()+((Rectangle)current.getShape()).getWidth();
+			}
+			if(current.getY()+((Rectangle)current.getShape()).getHeight()>y2) {
+				y2 = current.getY()+((Rectangle)current.getShape()).getHeight();
+			}
+
+			i+= 1;
+		}
+		return new Location(x1,y1, new Rectangle(x2-x1,y2-y1));
 	}
+
 
 	@Override
 	public Location onLocation(final Location l) {
@@ -61,6 +83,7 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onPolygon(final Polygon s) {
-		return null;
+		return onGroup(s);
+		//We are putting this in to make it draw everything other than the polygon.
 	}
 }
